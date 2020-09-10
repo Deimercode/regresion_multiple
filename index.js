@@ -9,14 +9,14 @@ var w1=[];
 var w2=[];
 var w3=[];
 var predicion=[];
-
+var table = $('#res')
  function calcularprediccion(wo,w1,w2,w3){
   for(let column of datos){
 
      predicion.push(w0*column.Porosidad+w1*column.Permeabilidad+w2*column.tamano_de_grano+w3*column.contenido_arcilla);
        
   }
-  mostrarArray(predicion,"predicion");
+
 
  }
 
@@ -27,22 +27,34 @@ var predicion=[];
         i++;
          
      }
-     mostrarArray(error,"error");
+   
  }
 
 
- function mostrarArray(elementos,textoCustom=""){
-    document.write("<h1>"+textoCustom+"</h1>")
-    document.write("<ul>")
-    
-    elementos.forEach((elemento,index)=>{
-      document.write("<li>"+elemento+"</li>")
-  })
-    document.write("</ul>")
-  }
+ 
  
   calcularprediccion(0.1,0.23,0.8,0.16);
  calcularError();
 
+function listar(){
+    let i=0;
+    for(let item of datos){
+        table.append(`
+            <tr>
+                <td>${item.Atenuacion}</td>
+                <td>${predicion[i].toFixed(3)}</td>
+                <td>${error[i].toFixed(3)}</td>
+                <td>${Math.pow(error[i],2).toFixed(3)}</td>
+                <td></td>
+                <td></td>
+                <td></td>
 
+            </tr>
+        
+        `);
+        i++;
+    }
+}
+
+listar()
 })
